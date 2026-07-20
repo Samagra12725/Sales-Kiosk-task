@@ -20,8 +20,13 @@ const io = new Server(server, {
   }
 });
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://jaiswalsamagra_db_user:KNNCWAf0eWvB4V9i@cluster0.hzziq5i.mongodb.net/sales-kiosk?retryWrites=true&w=majority';
+const MONGO_URI = process.env.MONGO_URI;
 const PORT = process.env.PORT || 5000;
+
+if (!MONGO_URI) {
+  console.error('CRITICAL ERROR: MONGO_URI is not defined in the environment variables.');
+  process.exit(1);
+}
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI)
